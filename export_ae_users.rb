@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'rubygems'
 gem 'activerecord', '3.0.0.beta4'
 require 'active_record'
