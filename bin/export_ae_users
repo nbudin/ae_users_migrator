@@ -36,4 +36,10 @@ ActiveRecord::Base.establish_connection(options)
 
 require 'ae_users_migrator/export'
 
-puts AeUsersMigrator::Export::Person.includes(:email_addresses, :account, :open_id_identities, :roles).all.to_json
+if AeUsersMigrator::Export::Person.respond_to?(:includes)
+  # ActiveRecord 3 API
+  puts AeUsersMigrator::Export::Person.includes(:email_addresses, :account, :open_id_identities, :roles).all.to_json
+else
+  # ActiveRecord 2.3 API
+  puts AeUsersMigrator::Export::Person.all(:include => [:email_addresses, :account, :open_id_identities, :roles]).to_json
+end
