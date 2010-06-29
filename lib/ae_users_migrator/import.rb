@@ -46,19 +46,20 @@ module AeUsersMigrator
       
       def initialize(json)
         @email_addresses = json["email_addresses"].collect do |ea_record|
-          EmailAddress.new(ea_record["email_address"])
+          EmailAddress.new(ea_record["email_address"] || ea_record)
         end
         
         @open_id_identities = json["open_id_identities"].collect do |oid_record|
-          OpenIdIdentity.new(oid_record["open_id_identity"])
+          OpenIdIdentity.new(oid_record["open_id_identity"] || oid_record)
         end
         
         @roles = json["roles"].collect do |role_record|
-          Role.new(role_record["role"])
+          rr = 
+          Role.new(role_record["role"] || role_record)
         end
         
         if json["account"]
-          @account = Account.new(json["account"]["account"])
+          @account = Account.new(json["account"]["account"] || json["account"])
         end
         
         %w{nickname birthdate gender id firstname lastname phone best_call_time}.each do |f|
@@ -83,10 +84,13 @@ module AeUsersMigrator
         df = Dumpfile.new
         
         json.each do |item|
-          if item["person"]
-            p = Person.new(item["person"])
-            df.people[p.id] = p
+          p = if item["person"]
+            Person.new(item["person"])
+          else
+            Person.new(item)
           end
+          
+          df.people[p.id] = p
         end
         
         return df
