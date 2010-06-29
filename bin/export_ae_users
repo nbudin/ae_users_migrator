@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'ae_users_migrator/export'
+
+ActiveRecord::Base.establish_connection(
+  :adapter => "mysql",
+  :host => "localhost",
+  :username => "root",
+  :database => "ae_users"
+)
+
+puts AeUsersMigrator::Export::Person.includes(:email_addresses, :account, :open_id_identities, :roles).all.to_json
