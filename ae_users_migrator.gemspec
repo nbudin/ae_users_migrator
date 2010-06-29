@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ae_users_migrator}
-  s.version = "0.0.0"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nat Budin"]
@@ -19,10 +19,12 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "LICENSE",
+    ".gitignore",
+     "LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "ae_users_migrator.gemspec",
      "bin/export_ae_users",
      "lib/ae_users_migrator.rb",
      "lib/ae_users_migrator/export.rb",
