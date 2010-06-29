@@ -1,13 +1,39 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
-require 'ae_users_migrator/export'
+require 'optparse'
 
-ActiveRecord::Base.establish_connection(
+options = {
   :adapter => "mysql",
   :host => "localhost",
   :username => "root",
   :database => "ae_users"
-)
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: export_ae_users [options]"
+
+  opts.on("-a", "--adapter ADAPTER", "ActiveRecord database adapter") do |a|
+    options[:adapter] = a
+  end
+
+  opts.on("-u", "--username USERNAME", "Database username") do |u|
+    options[:username] = u
+  end  
+  
+  opts.on("-p", "--password PASSWORD", "Database password") do |p|
+    options[:password] = p
+  end
+  
+  opts.on("-d", "--database DATABASE", "Database to connect to") do |d|
+    options[:database] = d
+  end
+end.parse!
+
+require 'rubygems'
+require 'active_record'
+
+ActiveRecord::Base.establish_connection(options)
+
+require 'ae_users_migrator/export'
 
 puts AeUsersMigrator::Export::Person.includes(:email_addresses, :account, :open_id_identities, :roles).all.to_json
