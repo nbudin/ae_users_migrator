@@ -33,10 +33,12 @@ module AeUsersMigrator
     end
     
     class Role
-      attr_accessor :name
+      attr_accessor :name, :id, :people
       
       def initialize(json)
         self.name = json["name"]
+        self.id = json["id"]
+        self.people = []
       end
     end
     
@@ -74,9 +76,11 @@ module AeUsersMigrator
     
     class Dumpfile
       attr_reader :people
+      attr_reader :roles
       
       def initialize
         @people = {}
+        @roles = {}
       end
       
       def self.load(file)
@@ -91,6 +95,13 @@ module AeUsersMigrator
           end
           
           df.people[p.id] = p
+        end
+        
+        df.people.each do |id, person|
+          person.roles.each do |role|
+            df.roles[role.id] ||= role
+            df.roles[role.id].people << person
+          end
         end
         
         return df
