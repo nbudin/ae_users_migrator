@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ae_users_migrator}
-  s.version = "1.0.2"
+  s.version = "1.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nat Budin"]
-  s.date = %q{2010-06-29}
+  s.date = %q{2010-07-18}
   s.default_executable = %q{export_ae_users}
   s.description = %q{Importer and exporter for ae_users databases using JSON-based dumpfiles}
   s.email = %q{natbudin@gmail.com}
