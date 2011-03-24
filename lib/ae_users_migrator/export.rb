@@ -22,6 +22,9 @@ module AeUsersMigrator
 
       def as_json(options = {})
         json = super(options)
+        if json['person']
+          json = json['person']
+        end
 
         %w{email_addresses account open_id_identities roles}.each do |assn|
           json[assn] = self.send(assn).as_json
