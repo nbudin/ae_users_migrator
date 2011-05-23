@@ -27,6 +27,14 @@ OptionParser.new do |opts|
   opts.on("-d", "--database DATABASE", "Database to connect to") do |d|
     options[:database] = d
   end
+
+  opts.on("-h", "--host HOST", "Database host to connect to") do |h|
+    options[:host] = h
+  end
+
+  opts.on("-c", "--ssl-ca CA", "CA PEM file to use for database connection") do |c|
+    options[:sslca] = c
+  end
 end.parse!
 
 require 'rubygems'
