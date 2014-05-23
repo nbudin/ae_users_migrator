@@ -3,7 +3,7 @@
 require 'optparse'
 
 options = {
-  :adapter => "mysql",
+  :adapter => "mysql2",
   :host => "localhost",
   :username => "root",
   :database => "ae_users"
